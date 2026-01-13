@@ -1,12 +1,18 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ApiResponse, ApiError } from '@/types';
-import authApi from './authApi';
 import log from '../utils/logger';
-import Config from 'react-native-config';
+
+// Safely import react-native-config
+let Config: any = null;
+try {
+  Config = require('react-native-config').default;
+} catch (e) {
+  log.warn('react-native-config not available');
+}
 
 // Base URL matching your curl command exactly
-const BASE_URL = (Config && (Config as any).BASE_URL) || 'http://192.168.7.108:3005';
+const BASE_URL = (Config?.BASE_URL) || 'http://192.168.7.108:3005';
 
 // Function to generate curl command for debugging
 function generateCurl(config: any) {
@@ -125,6 +131,8 @@ axiosClient.interceptors.response.use(
       try {
         const refreshToken = await AsyncStorage.getItem('refreshToken');
         if (refreshToken) {
+          // Dynamically import authApi to avoid circular dependency
+          const { default: authApi } = await import('./authApi');
           const response = await authApi.refreshToken(refreshToken);
           const tokenData = response.data || response; // Handle both response object and direct data
           await AsyncStorage.setItem('authToken', tokenData.access);

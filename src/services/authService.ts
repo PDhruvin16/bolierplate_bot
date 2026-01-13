@@ -3,8 +3,40 @@ import authApi from '../api/authApi';
 import log from '../utils/logger';
 
 export const authService = {
+  // OTP Login (fixed OTP: 123456)
+  loginWithOTP: async (otp: string) => {
+    try {
+      // Fixed OTP for now
+      if (otp !== '123456') {
+        throw new Error('Invalid OTP. Please enter 123456');
+      }
+
+      // Mock user data for successful login
+      const mockUser = {
+        id: 1,
+        name: 'Rajesh Kumar',
+        email: 'rajesh@example.com',
+        location: 'Mumbai West',
+        role: 'field_agent',
+      };
+
+      const mockToken = 'mock-jwt-token-' + Date.now();
+
+      await AsyncStorage.setItem('authToken', mockToken);
+      await AsyncStorage.setItem('userData', JSON.stringify(mockUser));
+
+      return {
+        token: mockToken,
+        user: mockUser,
+      };
+    } catch (error) {
+      log.error('Error in OTP login:', error);
+      throw error;
+    }
+  },
+
   // Store authentication data
-  storeAuthData: async (token, user) => {
+  storeAuthData: async (token: string, user: any) => {
     try {
       await AsyncStorage.setItem('authToken', token);
       await AsyncStorage.setItem('userData', JSON.stringify(user));
@@ -66,10 +98,11 @@ export const authService = {
       }
 
       const response = await authApi.refreshToken(currentToken);
+      const responseData = response.data || response;
 
-      if (response.token) {
-        await AsyncStorage.setItem('authToken', response.token);
-        return response.token;
+      if (responseData.token) {
+        await AsyncStorage.setItem('authToken', responseData.token);
+        return responseData.token;
       }
 
       throw new Error('Failed to refresh token');

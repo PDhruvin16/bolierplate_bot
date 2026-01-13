@@ -12,9 +12,9 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { COLORS } from '../../context/ThemeContext';
 import { FONTS } from '../../constants/fonts';
 import CustomButton from './CustomButton';
+import colors from '../../constants/colors';
 
 const { width } = Dimensions.get('window');
 
@@ -142,7 +142,7 @@ const CommonPopup: React.FC<CommonPopupProps> = ({
                       placeholder={field.placeholder}
                       value={field.value}
                       onChangeText={field.onChangeText}
-                      placeholderTextColor={COLORS.gray}
+                      placeholderTextColor={colors.gray}
                     />
                     {field.type === 'search' && (
                       <TouchableOpacity style={styles.searchIcon}>
@@ -165,10 +165,10 @@ const CommonPopup: React.FC<CommonPopupProps> = ({
                       value={toggle.value}
                       onValueChange={toggle.onValueChange}
                       trackColor={{
-                        false: COLORS.lightGray,
-                        true: COLORS.success,
+                        false: colors.lightGray,
+                        true: colors.success,
                       }}
-                      thumbColor={toggle.value ? COLORS.white : COLORS.white}
+                      thumbColor={toggle.value ? colors.white : colors.white}
                     />
                   </View>
                 </View>
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   popupContainer: {
-    backgroundColor: COLORS.white,
+    backgroundColor: colors.white,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     paddingBottom: 0,
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
   dragHandle: {
     width: 40,
     height: 4,
-    backgroundColor: COLORS.lightGray,
+    backgroundColor: colors.lightGray,
     borderRadius: 2,
     alignSelf: 'center',
     marginTop: 8,
@@ -237,19 +237,19 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 16,
     borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
+    borderBottomColor: colors.border,
   },
   title: {
     fontSize: FONTS.lg,
     fontWeight: '600',
-    color: COLORS.dark,
+    color: colors.dark,
   },
   closeButton: {
     padding: 4,
   },
   closeIcon: {
     fontSize: 20,
-    color: COLORS.gray,
+    color: colors.gray,
     fontWeight: 'bold',
   },
   scroll: {
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: FONTS.base,
-    color: COLORS.dark,
+    color: colors.dark,
     lineHeight: 24,
     marginBottom: 24,
     flexShrink: 1,
@@ -271,24 +271,24 @@ const styles = StyleSheet.create({
   fieldLabel: {
     fontSize: FONTS.sm,
     fontWeight: '500',
-    color: COLORS.dark,
+    color: colors.dark,
     marginBottom: 8,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor: colors.border,
     borderRadius: 8,
     paddingHorizontal: 12,
-    backgroundColor: COLORS.white,
+    backgroundColor: colors.white,
     minHeight: 44,
   },
   input: {
     flex: 1,
     paddingVertical: 12,
     fontSize: FONTS.base,
-    color: COLORS.dark,
+    color: colors.dark,
     minHeight: 20,
   },
   searchIcon: {
@@ -306,7 +306,7 @@ const styles = StyleSheet.create({
   },
   toggleLabel: {
     fontSize: FONTS.base,
-    color: COLORS.dark,
+    color: colors.dark,
     flex: 1,
   },
   toggleWrapper: {
@@ -315,7 +315,7 @@ const styles = StyleSheet.create({
   },
   toggleStatus: {
     fontSize: FONTS.sm,
-    color: COLORS.gray,
+    color: colors.gray,
     marginRight: 8,
   },
   buttonContainer: {
@@ -324,7 +324,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     gap: 12,
     borderTopWidth: 1,
-    borderTopColor: COLORS.border,
+    borderTopColor: colors.border,
   },
   secondaryButton: {
     flex: 1,
@@ -332,62 +332,62 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: COLORS.border,
-    backgroundColor: COLORS.white,
+    borderColor: colors.border,
+    backgroundColor: colors.white,
     alignItems: 'center',
     justifyContent: 'center',
   },
   secondaryButtonText: {
     fontSize: FONTS.base,
     fontWeight: '500',
-    color: COLORS.dark,
+    color: colors.dark,
   },
   primaryButton: {
     flex: 1,
     paddingVertical: 14,
     paddingHorizontal: 24,
     borderRadius: 8,
-    backgroundColor: COLORS.primary,
+    backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
   },
   primaryButtonText: {
     fontSize: FONTS.base,
     fontWeight: '500',
-    color: COLORS.white,
+    color: colors.white,
   },
   deleteButton: {
     flex: 1,
     paddingVertical: 14,
     paddingHorizontal: 24,
     borderRadius: 8,
-    backgroundColor: COLORS.error,
+    backgroundColor: colors.error,
     alignItems: 'center',
     justifyContent: 'center',
   },
   deleteButtonText: {
     fontSize: FONTS.base,
     fontWeight: '500',
-    color: COLORS.white,
+    color: colors.white,
   },
   warningButton: {
     flex: 1,
     paddingVertical: 14,
     paddingHorizontal: 24,
     borderRadius: 8,
-    backgroundColor: COLORS.warning,
+    backgroundColor: colors.warning,
     alignItems: 'center',
     justifyContent: 'center',
   },
   warningButtonText: {
     fontSize: FONTS.base,
     fontWeight: '500',
-    color: COLORS.white,
+    color: colors.white,
   },
   homeIndicator: {
     width: 134,
     height: 5,
-    backgroundColor: COLORS.dark,
+    backgroundColor: colors.dark,
     borderRadius: 3,
     alignSelf: 'center',
     marginTop: 8,

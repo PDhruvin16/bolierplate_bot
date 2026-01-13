@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { COLORS } from '../context/ThemeContext';
+// import { COLORS } from '../context/ThemeContext';
 import { Customer } from '../types/api';
 import { CustomerCardProps } from '../types/components';
+import colors from '../constants/colors';
 
 const CustomerCard: React.FC<CustomerCardProps> = ({
   customer,
@@ -22,13 +23,13 @@ const CustomerCard: React.FC<CustomerCardProps> = ({
   const getStatusColor = (status: string): string => {
     switch (status?.toLowerCase()) {
       case 'active':
-        return COLORS.success;
+        return colors.success;
       case 'inactive':
-        return COLORS.error;
+        return colors.error;
       case 'pending':
-        return COLORS.warning;
+        return colors.warning;
       default:
-        return COLORS.gray;
+        return colors.gray;
     }
   };
 
@@ -97,11 +98,11 @@ const CustomerCard: React.FC<CustomerCardProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.white,
+    backgroundColor: colors.white,
     borderRadius: 12,
     padding: 16,
     marginBottom: 12,
-    shadowColor: COLORS.dark,
+    shadowColor: colors.dark,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -127,12 +128,12 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: COLORS.primary,
+    backgroundColor: colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
   },
   avatarText: {
-    color: COLORS.white,
+    color: colors.white,
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -142,17 +143,17 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontWeight: '600',
-    color: COLORS.dark,
+    color: colors.dark,
     marginBottom: 4,
   },
   email: {
     fontSize: 14,
-    color: COLORS.gray,
+    color: colors.gray,
     marginBottom: 2,
   },
   phone: {
     fontSize: 14,
-    color: COLORS.gray,
+    color: colors.gray,
   },
   statusContainer: {
     alignItems: 'center',
@@ -165,7 +166,7 @@ const styles = StyleSheet.create({
   },
   statusText: {
     fontSize: 12,
-    color: COLORS.gray,
+    color: colors.gray,
     textTransform: 'capitalize',
   },
   companyContainer: {
@@ -175,12 +176,12 @@ const styles = StyleSheet.create({
   },
   companyLabel: {
     fontSize: 14,
-    color: COLORS.gray,
+    color: colors.gray,
     marginRight: 8,
   },
   companyName: {
     fontSize: 14,
-    color: COLORS.dark,
+    color: colors.dark,
     fontWeight: '500',
     flex: 1,
   },
@@ -190,12 +191,12 @@ const styles = StyleSheet.create({
   },
   lastContactLabel: {
     fontSize: 14,
-    color: COLORS.gray,
+    color: colors.gray,
     marginRight: 8,
   },
   lastContactDate: {
     fontSize: 14,
-    color: COLORS.dark,
+    color: colors.dark,
     fontWeight: '500',
   },
 });

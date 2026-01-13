@@ -7,9 +7,10 @@ import {
   TouchableOpacity,
   TextInputProps,
 } from 'react-native';
-import { COLORS } from '../../context/ThemeContext';
+// import { COLORS } from '../../context/ThemeContext';
 import { InputProps } from '../../types/components';
 import { useTheme } from '../../context/ThemeContext';
+import colors from '../../constants/colors';
 
 const CustomInput: React.FC<InputProps & TextInputProps> = ({
   label,
@@ -44,7 +45,7 @@ const CustomInput: React.FC<InputProps & TextInputProps> = ({
   const themedStyle = {
     label: {
       ...styles.label,
-      color: theme === 'dark' ? '#ffffff' : COLORS.dark,
+      color: theme === 'dark' ? '#ffffff' : colors.dark,
     },
   };
   const getInputStyle = () => {
@@ -86,12 +87,18 @@ const CustomInput: React.FC<InputProps & TextInputProps> = ({
     }
 
     if (rightIcon) {
+      const content =
+        typeof rightIcon === 'string' ? (
+          <Text style={styles.iconText}>{rightIcon}</Text>
+        ) : (
+          rightIcon
+        );
       return (
         <TouchableOpacity
           style={styles.iconContainer}
           onPress={onRightIconPress}
         >
-          <Text style={styles.iconText}>{rightIcon}</Text>
+          {content}
         </TouchableOpacity>
       );
     }
@@ -118,7 +125,11 @@ const CustomInput: React.FC<InputProps & TextInputProps> = ({
       >
         {leftIcon && (
           <View style={styles.leftIconContainer}>
-            <Text style={styles.iconText}>{leftIcon}</Text>
+            {typeof leftIcon === 'string' ? (
+              <Text style={styles.iconText}>{leftIcon}</Text>
+            ) : (
+              leftIcon
+            )}
           </View>
         )}
 
@@ -128,7 +139,7 @@ const CustomInput: React.FC<InputProps & TextInputProps> = ({
           onChangeText={onChangeText}
           placeholder={placeholder}
           placeholderTextColor={
-            theme === 'dark' ? COLORS.lightGray : COLORS.gray
+            theme === 'dark' ? colors.lightGray : colors.gray
           }
           secureTextEntry={secureTextEntry && !showPassword}
           keyboardType={keyboardType}
@@ -160,11 +171,11 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '500',
-    color: COLORS.dark,
+    color: colors.dark,
     marginBottom: 8,
   },
   required: {
-    color: COLORS.error,
+    color: colors.error,
   },
 
   inputContainer: {
@@ -204,10 +215,10 @@ const styles = StyleSheet.create({
   },
 
   error: {
-    borderColor: COLORS.error,
+    borderColor: colors.error,
   },
   disabled: {
-    backgroundColor: COLORS.lightGray,
+    backgroundColor: colors.lightGray,
     opacity: 0.6,
   },
   leftIconContainer: {
@@ -221,7 +232,7 @@ const styles = StyleSheet.create({
   //   fontSize: 18,
   // },
   errorText: {
-    color: COLORS.error,
+    color: colors.error,
     fontSize: 14,
     marginTop: 4,
   },

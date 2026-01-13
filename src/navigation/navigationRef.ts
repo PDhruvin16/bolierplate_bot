@@ -14,4 +14,9 @@ export function goBack() {
   }
 }
 
+export function setNavigationRef(ref: any) {
+  // This function is for compatibility with notification service
+  // The navigationRef is already set via NavigationContainer ref prop
+}
+
 

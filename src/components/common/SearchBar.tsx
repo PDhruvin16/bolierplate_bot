@@ -6,11 +6,11 @@ import {
   StyleSheet,
   TextInputProps,
 } from 'react-native';
-import { COLORS } from '../../context/ThemeContext';
 import { FONTS } from '../../constants/fonts';
 import icons from '../../constants/icons';
 import { renderLogo } from '../../utils/renderlogo';
 import { useTheme } from '../../context/ThemeContext';
+import colors from '../../constants/colors';
 
 export interface SearchBarProps {
   value: string;
@@ -37,12 +37,12 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const ThemedStyle = {
     container: {
       ...styles.container,
-      backgroundColor: theme === 'dark' ? '#2C2B2B' : COLORS.white,
-      borderColor: theme === 'dark' ? '#2C2B2B' : COLORS.lightGray,
+      backgroundColor: theme === 'dark' ? '#2C2B2B' : colors.white,
+      borderColor: theme === 'dark' ? '#2C2B2B' : colors.lightGray,
     },
     filterButton: {
       ...styles.filterButton,
-      backgroundColor: theme === 'dark' ? '#2C2B2B' : COLORS.lightBackground,
+      backgroundColor: theme === 'dark' ? '#2C2B2B' : colors.lightBackground,
     },
   };
   return (
@@ -53,7 +53,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       <TextInput
         style={styles.input}
         placeholder={placeholder}
-        placeholderTextColor={COLORS.gray}
+        placeholderTextColor={colors.gray}
         value={value}
         onChangeText={onChangeText}
         returnKeyType="search"
@@ -77,14 +77,14 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: COLORS.white,
+    backgroundColor: colors.white,
     marginHorizontal: 16,
     marginVertical: 12,
     borderRadius: 8,
     paddingHorizontal: 12,
     height: 40,
     borderWidth: 1,
-    borderColor: COLORS.lightGray,
+    borderColor: colors.lightGray,
   },
   leftIcon: {
     marginRight: 8,
@@ -92,13 +92,13 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: FONTS.sm,
-    color: COLORS.dark,
+    color: colors.dark,
     paddingVertical: 0,
   },
   filterButton: {
     marginLeft: 8,
     padding: 6,
-    // backgroundColor: COLORS.lightBackground,
+    // backgroundColor: colors.lightBackground,
     borderRadius: 6,
   },
 });

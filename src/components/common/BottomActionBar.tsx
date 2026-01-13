@@ -5,11 +5,12 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import { COLORS } from '../../context/ThemeContext';
+
 import { FONTS } from '../../constants/fonts';
 import { ActionBarItem } from '../../constants/accountData';
 import { useTheme } from '../../context/ThemeContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import colors from '../../constants/colors';
 
 export interface BottomActionBarProps {
   items: ActionBarItem[];
@@ -20,12 +21,12 @@ const BottomActionBar: React.FC<BottomActionBarProps> = ({ items }) => {
   const ThemedStyle = {
     container: {
       ...styles.container,
-      backgroundColor: theme === 'dark' ? '#000000' : COLORS.white,
-      borderTopColor: theme === 'dark' ? '#000000' : COLORS.lightGray,
+      backgroundColor: theme === 'dark' ? '#000000' : colors.white,
+      borderTopColor: theme === 'dark' ? '#000000' : colors.lightGray,
     },
     actionLabel: {
       ...styles.actionLabel,
-      color: theme === 'dark' ? '#ffffff' : COLORS.dark,
+      color: theme === 'dark' ? '#ffffff' : colors.dark,
     },
   };
   return (
@@ -65,13 +66,13 @@ const BottomActionBar: React.FC<BottomActionBarProps> = ({ items }) => {
 
 const styles = StyleSheet.create({
   safeArea: {
-    backgroundColor: COLORS.white,
+    backgroundColor: colors.white,
   },
   container: {
     flexDirection: 'row',
-    backgroundColor: COLORS.white,
+    backgroundColor: colors.white,
     borderTopWidth: 1,
-    borderTopColor: COLORS.lightGray,
+    borderTopColor: colors.lightGray,
     paddingHorizontal: 16,
     paddingVertical: 12,
     justifyContent: 'space-around',
@@ -88,19 +89,19 @@ const styles = StyleSheet.create({
   actionIcon: {
     fontSize: 20,
     marginBottom: 4,
-    color: COLORS.dark,
+    color: colors.dark,
   },
   disabledActionIcon: {
-    color: COLORS.gray,
+    color: colors.gray,
   },
   actionLabel: {
     fontSize: FONTS.xs,
-    color: COLORS.dark,
+    color: colors.dark,
     fontWeight: '500',
     textAlign: 'center',
   },
   disabledActionLabel: {
-    color: COLORS.gray,
+    color: colors.gray,
   },
 });
 

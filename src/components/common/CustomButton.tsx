@@ -9,9 +9,9 @@ import {
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { COLORS } from '../../context/ThemeContext';
 import { FONTS } from '../../constants/fonts';
 import { ButtonProps } from '../../types/components';
+import colors from '../../constants/colors';
 
 // Add customColors prop to ButtonProps
 interface CustomButtonProps extends ButtonProps {
@@ -77,8 +77,8 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         <ActivityIndicator
           color={
             variant === 'outline' || variant === 'gray' || variant === 'light'
-              ? COLORS.dark
-              : COLORS.white
+              ? colors.dark
+              : colors.white
           }
           size="small"
         />
@@ -158,7 +158,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
           style={[
             styles.button,
             getButtonSizeStyle(),
-            { backgroundColor: COLORS.primary },
+            { backgroundColor: colors.primary },
             disabled && styles.disabled,
           ]}
         >
@@ -245,12 +245,12 @@ const styles = StyleSheet.create({
     minHeight: 56,
   },
   secondary: {
-    backgroundColor: COLORS.secondary,
+    backgroundColor: colors.secondary,
   },
   outline: {
-    backgroundColor: COLORS.white,
+    backgroundColor: colors.white,
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor: colors.border,
   },
   gray: {
     backgroundColor: '#8E8E93', // Medium gray like in the image
@@ -279,22 +279,22 @@ const styles = StyleSheet.create({
     fontSize: FONTS.lg,
   },
   primaryText: {
-    color: COLORS.white,
+    color: colors.white,
   },
   secondaryText: {
-    color: COLORS.white,
+    color: colors.white,
   },
   outlineText: {
-    color: COLORS.dark,
+    color: colors.dark,
   },
   grayText: {
-    color: COLORS.dark,
+    color: colors.dark,
   },
   lightText: {
-    color: COLORS.darkGray,
+    color: colors.darkGray,
   },
   disabledText: {
-    color: COLORS.darkGray,
+    color: colors.darkGray,
   },
 });
 

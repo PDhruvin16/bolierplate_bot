@@ -1,10 +1,11 @@
 import React, { useState, ReactNode } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { COLORS } from '../../context/ThemeContext';
+
 import { FONTS } from '../../constants/fonts';
 import { renderLogo } from '../../utils/renderlogo';
 import icons from '../../constants/icons';
 import { useTheme } from '../../context/ThemeContext';
+import colors from '../../constants/colors';
 
 export interface AccordionProps {
   title: string;
@@ -27,23 +28,23 @@ const Accordion: React.FC<AccordionProps> = ({
   const ThemedStyle = {
     container: {
       ...styles.container,
-      backgroundColor: theme === 'dark' ? '#1E1E1E' : COLORS.white,
-      borderColor: theme === 'dark' ? '#1E1E1E' : COLORS.lightGray,
+      backgroundColor: theme === 'dark' ? '#1E1E1E' : colors.white,
+      borderColor: theme === 'dark' ? '#1E1E1E' : colors.lightGray,
     },
     title: {
       ...styles.title,
-      color: theme === 'dark' ? '#ffffff' : COLORS.dark,
+      color: theme === 'dark' ? '#ffffff' : colors.dark,
     },
     header: {
       ...styles.header,
-      backgroundColor: theme === 'dark' ? '#1E1E1E' : COLORS.white,
+      backgroundColor: theme === 'dark' ? '#1E1E1E' : colors.white,
 
-      borderColor: theme === 'dark' ? '#1E1E1E' : COLORS.lightGray,
+      borderColor: theme === 'dark' ? '#1E1E1E' : colors.lightGray,
       // borderBottomWidth: expanded ? 0 : 1,
     },
     content: {
       ...styles.content,
-      backgroundColor: theme === 'dark' ? '#22223b' : COLORS.white,
+      backgroundColor: theme === 'dark' ? '#22223b' : colors.white,
     },
   };
 
@@ -72,10 +73,10 @@ const Accordion: React.FC<AccordionProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.white,
+    backgroundColor: colors.white,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: COLORS.lightGray,
+    borderColor: colors.lightGray,
     marginBottom: 12,
     overflow: 'hidden',
   },
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: 14,
-    backgroundColor: COLORS.white,
+    backgroundColor: colors.white,
   },
   headerRight: {
     flexDirection: 'row',
@@ -95,11 +96,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: FONTS.md,
     fontWeight: '600',
-    color: COLORS.dark,
+    color: colors.dark,
   },
   chevron: {
     fontSize: 16,
-    color: COLORS.gray,
+    color: colors.gray,
   },
   content: {
     paddingHorizontal: 16,

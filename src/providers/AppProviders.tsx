@@ -9,9 +9,10 @@ import Toast from 'react-native-toast-message';
 
 import { store, persistor } from '../store';
 import { queryClient } from '../services/queryClient';
-import { ThemeProvider } from '../context/ThemeContext';
+// import { ThemeProvider } from '../context/ThemeContext';
 import { NotificationProvider } from '../context/NotificationContext';
 import Loader from '../components/common/Loader';
+import { ThemeProvider } from '../context/ThemeContext';
 
 type Props = {
   children: ReactNode;

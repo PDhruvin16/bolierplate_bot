@@ -1,13 +1,14 @@
 import React from 'react';
 import { View, ActivityIndicator, Text, StyleSheet, Modal } from 'react-native';
-import { COLORS } from '../../context/ThemeContext';
+
 import { LoadingProps } from '../../types/components';
+import colors from '../../constants/colors';
 
 const Loader: React.FC<LoadingProps> = ({
   visible = false,
   text = 'Loading...',
   size = 'large',
-  color = COLORS.primary,
+  color = colors.primary,
   overlay = true,
   style,
 }) => {
@@ -42,11 +43,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   container: {
-    backgroundColor: COLORS.white,
+    backgroundColor: colors.white,
     borderRadius: 12,
     padding: 24,
     alignItems: 'center',
-    shadowColor: COLORS.dark,
+    shadowColor: colors.dark,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
   text: {
     marginTop: 12,
     fontSize: 16,
-    color: COLORS.dark,
+    color: colors.dark,
     textAlign: 'center',
   },
 });

@@ -7,10 +7,10 @@ import {
   ViewStyle,
   TextStyle,
 } from 'react-native';
-import { COLORS } from '../../context/ThemeContext';
 import { FONTS } from '../../constants/fonts';
 import { renderLogo } from '../../utils/renderlogo';
 import icons from '../../constants/icons';
+import colors from '../../constants/colors';
 
 export interface CheckboxProps {
   label?: string;
@@ -56,22 +56,22 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 4,
     borderWidth: 2,
-    borderColor: COLORS.gray,
+    borderColor: colors.gray,
     justifyContent: 'center',
     alignItems: 'center',
   },
   checkedBox: {
-    backgroundColor: COLORS.primary,
-    borderColor: COLORS.primary,
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
   },
   checkmark: {
-    color: COLORS.white,
+    color: colors.white,
     fontSize: 12,
     fontWeight: 'bold',
   },
   label: {
     fontSize: FONTS.sm,
-    color: COLORS.dark,
+    color: colors.dark,
   },
 });
 

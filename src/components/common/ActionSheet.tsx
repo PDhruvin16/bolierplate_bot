@@ -136,10 +136,10 @@ import {
   BottomSheetScrollView,
   BottomSheetBackdrop,
 } from '@gorhom/bottom-sheet';
-import { COLORS } from '../../context/ThemeContext';
 import { FONTS } from '../../constants/fonts';
 import { useTheme } from '../../context/ThemeContext';
 import log from '../../utils/logger';
+import colors from '../../constants/colors';
 
 export interface ActionItem {
   id: string;
@@ -184,15 +184,15 @@ const ActionSheet: React.FC<ActionSheetProps> = ({
   const themedStyles = {
     container: {
       ...styles.container,
-      backgroundColor: theme === 'dark' ? '#000000' : COLORS.white,
+      backgroundColor: theme === 'dark' ? '#000000' : colors.white,
     },
     title: {
       ...styles.title,
-      color: theme === 'dark' ? '#ffffff' : COLORS.gray,
+      color: theme === 'dark' ? '#ffffff' : colors.gray,
     },
     rowText: {
       ...styles.rowText,
-      color: theme === 'dark' ? '#ffffff' : COLORS.dark,
+      color: theme === 'dark' ? '#ffffff' : colors.dark,
     },
   };
 
@@ -302,7 +302,7 @@ const ActionSheet: React.FC<ActionSheetProps> = ({
 
 const styles = StyleSheet.create({
   sheet: {
-    backgroundColor: COLORS.white, // Changed from COLORS.gray to white
+    backgroundColor: colors.white, // Changed from colors.gray to white
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   handle: {
-    backgroundColor: COLORS.lightGray,
+    backgroundColor: colors.lightGray,
     width: 40,
     height: 4,
   },
@@ -323,7 +323,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: FONTS.sm,
-    color: COLORS.gray,
+    color: colors.gray,
     paddingHorizontal: 16,
     marginBottom: 8,
     fontWeight: '500',
@@ -355,12 +355,12 @@ const styles = StyleSheet.create({
   },
   rowText: {
     fontSize: FONTS.base,
-    color: COLORS.dark,
+    color: colors.dark,
     fontWeight: '500',
   },
   separator: {
     height: 1,
-    backgroundColor: COLORS.lightGray,
+    backgroundColor: colors.lightGray,
     marginHorizontal: 16,
     opacity: 0.5,
   },

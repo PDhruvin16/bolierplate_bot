@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
-import { COLORS } from '../../context/ThemeContext';
 import networkService from '../../services/networkService';
 import CustomHeader from '../../components/common/CustomHeader';
 import CustomButton from '../../components/common/CustomButton';
 import { useTheme } from '../../context/ThemeContext';
 import { navigationRef } from '../../navigation/navigationRef';
+import colors from '../../constants/colors';
 
 const NoInternetScreen: React.FC = () => {
   const [checking, setChecking] = useState(false);
@@ -62,12 +62,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: '700',
-    color: COLORS.dark,
+    color: colors.dark,
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 14,
-    color: COLORS.gray,
+    color: colors.gray,
     marginBottom: 20,
     textAlign: 'center',
   },
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   },
   message: {
     marginTop: 12,
-    color: COLORS.error,
+    color: colors.error,
   },
   spinner: {
     marginTop: 12,

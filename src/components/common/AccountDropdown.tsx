@@ -8,9 +8,9 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
-import { COLORS } from '../../context/ThemeContext';
 import { FONTS } from '../../constants/fonts';
 import CustomButton from './CustomButton';
+import colors from '../../constants/colors';
 // import { CustomButton } from './CustomButton';
 
 export interface AccountFormData {
@@ -198,11 +198,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: COLORS.white,
+    backgroundColor: colors.white,
     borderRadius: 8,
     padding: 16,
     borderWidth: 1,
-    borderColor: COLORS.lightGray,
+    borderColor: colors.lightGray,
     minHeight: 56,
   },
   triggerContent: {
@@ -211,16 +211,16 @@ const styles = StyleSheet.create({
   triggerTitle: {
     fontSize: FONTS.sm,
     fontWeight: '600',
-    color: COLORS.dark,
+    color: colors.dark,
     marginBottom: 4,
   },
   triggerPlaceholder: {
     fontSize: FONTS.md,
-    color: COLORS.gray,
+    color: colors.gray,
   },
   chevron: {
     fontSize: 16,
-    color: COLORS.gray,
+    color: colors.gray,
     marginLeft: 12,
   },
   modalOverlay: {
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalContent: {
-    backgroundColor: COLORS.white,
+    backgroundColor: colors.white,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     maxHeight: '80%',
@@ -241,24 +241,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: COLORS.lightGray,
+    borderBottomColor: colors.lightGray,
   },
   modalTitle: {
     fontSize: FONTS.xl,
     fontWeight: '600',
-    color: COLORS.dark,
+    color: colors.dark,
   },
   closeButton: {
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: COLORS.lightBackground,
+    backgroundColor: colors.lightBackground,
     justifyContent: 'center',
     alignItems: 'center',
   },
   closeButtonText: {
     fontSize: 18,
-    color: COLORS.gray,
+    color: colors.gray,
     fontWeight: 'bold',
   },
   formContainer: {
@@ -279,21 +279,21 @@ const styles = StyleSheet.create({
   inputLabel: {
     fontSize: FONTS.sm,
     fontWeight: '500',
-    color: COLORS.dark,
+    color: colors.dark,
     marginBottom: 8,
   },
   required: {
-    color: COLORS.error,
+    color: colors.error,
   },
   textInput: {
     borderWidth: 1,
-    borderColor: COLORS.lightGray,
+    borderColor: colors.lightGray,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 12,
     fontSize: FONTS.md,
-    color: COLORS.dark,
-    backgroundColor: COLORS.white,
+    color: colors.dark,
+    backgroundColor: colors.white,
   },
   multilineInput: {
     height: 80,

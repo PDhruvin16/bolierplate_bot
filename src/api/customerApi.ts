@@ -1,7 +1,7 @@
 import log from '../utils/logger';
 import axiosClient from './axiosClient';
 import { ENDPOINTS } from './endpoints';
-import axiosClient from './axiosClient';
+// import axiosClient from './axiosClient';
 export type AccountListParams = {
   page?: number;
   page_size?: number;

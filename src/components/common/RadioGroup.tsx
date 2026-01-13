@@ -7,8 +7,8 @@ import {
   ViewStyle,
   TextStyle,
 } from 'react-native';
-import { COLORS } from '../../context/ThemeContext';
 import { FONTS } from '../../constants/fonts';
+import colors from '../../constants/colors';
 
 export interface RadioOption {
   id: string;
@@ -70,7 +70,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
 const styles = StyleSheet.create({
   groupLabel: {
     fontSize: FONTS.sm,
-    color: COLORS.dark,
+    color: colors.dark,
     marginBottom: 8,
     fontWeight: '500',
   },
@@ -93,20 +93,20 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: COLORS.primary,
+    borderColor: colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.white,
+    backgroundColor: colors.white,
   },
   radioInner: {
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: COLORS.primary,
+    backgroundColor: colors.primary,
   },
   label: {
     fontSize: FONTS.sm,
-    color: COLORS.dark,
+    color: colors.dark,
   },
 });
 

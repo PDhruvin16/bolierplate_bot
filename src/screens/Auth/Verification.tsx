@@ -3,184 +3,176 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
-  Alert,
   KeyboardAvoidingView,
   Platform,
-  TouchableOpacity,
   TextInput,
+  TouchableOpacity,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { AuthStackParamList } from '../../types/navigation';
+import LinearGradient from 'react-native-linear-gradient';
+import { ArrowLeft, Lock } from 'lucide-react-native';
+
 import CustomButton from '../../components/common/CustomButton';
 import Loader from '../../components/common/Loader';
-import GradientHeader from '../../components/common/Authheader';
-import images from '../../constants/images';
-import { useAuth } from '../../context/AuthContext';
-import MaskedView from '@react-native-masked-view/masked-view';
-import LinearGradient from 'react-native-linear-gradient';
-import { useTheme } from '../../context/ThemeContext';
+import colors from '../../constants/colors';
+import { useAuth } from '../../hooks/useAuth';
 
-type VerificationScreenNavigationProp = StackNavigationProp<
-  AuthStackParamList,
-  'Verification'
->;
+interface OTPVerificationScreenProps {
+  route: {
+    params: {
+      mobile: string;
+    };
+  };
+  navigation: any;
+}
 
-const VerificationScreen: React.FC = () => {
-  const navigation = useNavigation<VerificationScreenNavigationProp>();
-  const { isLoading } = useAuth() as any;
-  const { theme } = useTheme();
-  const [otp, setOtp] = useState<string[]>(Array(6).fill(''));
-  const inputs = useRef<TextInput[]>([]);
+const OTPVerificationScreen: React.FC<OTPVerificationScreenProps> = ({
+  route,
+  navigation,
+}) => {
+  const { login, isLoading } = useAuth() as any;
+  const { mobile } = route.params;
+  
+  const [otp, setOtp] = useState(['', '', '', '', '', '']);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
+  
+  const inputRefs = useRef<(TextInput | null)[]>([]);
 
-  const handleChange = (text: string, index: number) => {
-    if (/^\d*$/.test(text)) {
-      const newOtp = [...otp];
-      newOtp[index] = text;
-      setOtp(newOtp);
+  const handleOtpChange = (value: string, index: number) => {
+    if (value.length > 1) {
+      value = value.charAt(0);
+    }
 
-      if (text && index < 5) {
-        inputs.current[index + 1]?.focus();
-      }
+    const newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
+    setError('');
+
+    // Auto focus next input
+    if (value && index < 5) {
+      inputRefs.current[index + 1]?.focus();
     }
   };
 
-  const handleVerify = () => {
-    Alert.alert('OTP Entered', otp.join(''));
+  const handleKeyPress = (e: any, index: number) => {
+    if (e.nativeEvent.key === 'Backspace' && !otp[index] && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    }
   };
-  const themedestyle = {
-    contentContainer: {
-      ...styles.contentContainer,
-      backgroundColor: theme === 'dark' ? '#000' : '#fff',
-    },
-    headerSubtitle: {
-      ...styles.headerSubtitle,
-      color: theme === 'dark' ? '#CCCCCC' : '#6C757D',
-    },
-    headerTitle: {
-      ...styles.headerTitle,
-      color: theme === 'dark' ? '#FFFFFF' : '#000',
-    },
-    otpBox: {
-      ...styles.otpBox,
-      backgroundColor: theme === 'dark' ? '#2F2F2F' : '#F2F2F2',
-      color: theme === 'dark' ? '#FFFFFF' : '#000',
-      borderColor: theme === 'dark' ? '#707070' : '#D1D1D1',
-    },
+
+  const handleVerifyOtp = async () => {
+    const otpString = otp.join('');
+    
+    if (otpString.length !== 6) {
+      setError('Please enter complete 6-digit OTP');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError('');
+    
+    try {
+      await login({ otp: otpString });
+      // Navigation will be handled by RootNavigator after auth state updates
+    } catch (err: any) {
+      setError(err.message || 'Invalid OTP. Please try again.');
+      setOtp(['', '', '', '', '', '']);
+      inputRefs.current[0]?.focus();
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  const handleResendOtp = () => {
+    setOtp(['', '', '', '', '', '']);
+    setError('');
+    inputRefs.current[0]?.focus();
+    // You can add resend OTP logic here
+  };
+
+  const isValid = otp.every(digit => digit !== '');
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      <Loader visible={isLoading} text="Verifying..." />
+      <Loader visible={isLoading || isSubmitting} text="Verifying OTP..." />
 
-      {/* Header */}
-      <View style={{ backgroundColor: 'violet' }}>
-        <GradientHeader
-          logoSource={images.AppLogo}
-          logoStyle={{
-            width: 200,
-            height: 100,
-            marginBottom: 20,
-            backgroundColor: 'violet',
-          }}
-        />
-        <View
-          style={{
-            ...StyleSheet.absoluteFillObject, // makes it fill its parent
-            backgroundColor: theme === 'dark' ? '#111111' : '#FFFFFF99',
-
-            borderRadius: 150,
-            top: 230,
-            bottom: 0,
-            height: 60,
-            width: '90%',
-            left: '5%',
-            opacity: theme === 'dark' ? 0.3 : 1,
-          }}
-        />
-      </View>
-
-      <ScrollView
-        style={themedestyle.contentContainer}
-        contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
-        bounces={false}
+      <LinearGradient
+        colors={[colors.headerGradientStart, colors.headerGradientEnd]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
+        style={styles.gradientBackground}
       >
-        {/* Title */}
-        <View style={styles.headerContent}>
-          <Text style={themedestyle.headerTitle}>Verification</Text>
-          <Text style={themedestyle.headerSubtitle}>
-            We sent you a code on example@gmail.com
-          </Text>
-        </View>
-
-        {/* OTP Boxes */}
-        <View style={styles.otpContainer}>
-          {otp.map((digit, index) => (
-            <TextInput
-              key={index}
-              ref={ref => (inputs.current[index] = ref!)}
-              style={themedestyle.otpBox}
-              value={digit}
-              onChangeText={text => handleChange(text, index)}
-              keyboardType="numeric"
-              maxLength={1}
-              textAlign="center"
-              //   placeholder="-"
-              placeholderTextColor="#B0B0B0"
-            />
-          ))}
-        </View>
-
-        {/* Timer + Resend */}
-        <View style={styles.timerRow}>
-          <Text style={styles.timerText}>00:30s</Text>
-          <TouchableOpacity>
-            <Text style={styles.resendText}>Resend Code</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Verify Button */}
-        <CustomButton
-          title="Verify"
-          onPress={handleVerify}
-          style={styles.loginButton}
-          variant="custom"
-          customColors={['#404698', '#882785']}
-        />
-
-        {/* Return to Login */}
-        <TouchableOpacity
-          style={{ alignSelf: 'center', marginTop: 12 }}
-          onPress={() => navigation.navigate('Login')}
+        <TouchableOpacity 
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}
         >
-          <MaskedView
-            maskElement={
-              <Text
-                style={[
-                  styles.gradientText,
-                  { backgroundColor: 'transparent' },
-                ]}
-              >
-                Return to Login
-              </Text>
-            }
-          >
-            <LinearGradient
-              colors={['#404698', '#882785']}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-            >
-              <Text style={[styles.gradientText, { opacity: 0 }]}>
-                Return to Login
-              </Text>
-            </LinearGradient>
-          </MaskedView>
+          <ArrowLeft size={24} color={colors.white} />
         </TouchableOpacity>
-      </ScrollView>
+
+        <View style={styles.logoCircle}>
+          <Lock size={32} color={colors.white} />
+        </View>
+        
+        <Text style={styles.title}>Verify OTP</Text>
+        <Text style={styles.subtitle}>
+          Enter the 6-digit code sent to{'\n'}
+          <Text style={styles.mobileNumber}>{mobile}</Text>
+        </Text>
+
+        <View style={styles.card}>
+          <View style={styles.otpContainer}>
+            {otp.map((digit, index) => (
+              <TextInput
+                key={index}
+                ref={ref => (inputRefs.current[index] = ref)}
+                style={[
+                  styles.otpInput,
+                  digit && styles.otpInputFilled,
+                  error && styles.otpInputError,
+                ]}
+                value={digit}
+                onChangeText={value => handleOtpChange(value, index)}
+                onKeyPress={e => handleKeyPress(e, index)}
+                keyboardType="number-pad"
+                maxLength={1}
+                selectTextOnFocus
+                autoFocus={index === 0}
+              />
+            ))}
+          </View>
+
+          {error ? (
+            <Text style={styles.errorText}>{error}</Text>
+          ) : null}
+
+          <Text style={styles.hintText}>
+            Use OTP: <Text style={styles.hintOtp}>123456</Text>
+          </Text>
+
+          <CustomButton
+            title="Verify & Continue"
+            onPress={handleVerifyOtp}
+            loading={isSubmitting}
+            disabled={!isValid || isSubmitting}
+            variant="custom"
+            customColors={[colors.headerGradientStart, colors.headerGradientEnd]}
+          />
+
+          <View style={styles.resendContainer}>
+            <Text style={styles.resendText}>Didn't receive the code? </Text>
+            <TouchableOpacity onPress={handleResendOtp}>
+              <Text style={styles.resendLink}>Resend OTP</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <Text style={styles.footerText}>
+          Toagosei India Private Limited © 2024
+        </Text>
+      </LinearGradient>
     </KeyboardAvoidingView>
   );
 };
@@ -188,82 +180,126 @@ const VerificationScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: colors.headerGradientStart,
   },
-  contentContainer: {
+  gradientBackground: {
     flex: 1,
-    backgroundColor: 'white',
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    marginTop: -25,
-    position: 'relative',
-  },
-  content: {
-    flexGrow: 1,
     paddingHorizontal: 24,
-    paddingTop: 30,
-  },
-  headerContent: {
     alignItems: 'center',
     justifyContent: 'center',
   },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#000',
-    textAlign: 'center',
-    marginBottom: 6,
+  backButton: {
+    position: 'absolute',
+    top: 50,
+    left: 20,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 10,
   },
-  headerSubtitle: {
-    fontSize: 14,
-    color: '#6C757D',
-    textAlign: 'center',
-    lineHeight: 20,
+  logoCircle: {
+    width: 72,
+    height: 72,
+    borderRadius: 36,
+    backgroundColor: 'rgba(255,255,255,0.25)',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: 24,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: '700',
+    color: colors.white,
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.9)',
+    textAlign: 'center',
+    marginBottom: 32,
+    lineHeight: 20,
+  },
+  mobileNumber: {
+    fontWeight: '700',
+    color: colors.white,
+  },
+  card: {
+    width: '100%',
+    backgroundColor: colors.white,
+    borderRadius: 20,
+    padding: 24,
+    shadowColor: colors.shadow,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 6,
   },
   otpContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 20,
   },
-  otpBox: {
-    width: 50,
-    height: 50,
-    borderRadius: 7,
-    backgroundColor: '#F2F2F2',
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#000',
-    // borderWidth:1,
-    // borderColor:'#D1D1D1',
-    borderBottomColor: '#707070',
-    borderBottomWidth: 1,
-    borderWidth: 1,
+  otpInput: {
+    width: 48,
+    height: 56,
+    borderWidth: 2,
+    borderColor: colors.border,
+    borderRadius: 12,
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: '700',
+    color: colors.dark,
+    backgroundColor: colors.background,
   },
-  timerRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  otpInputFilled: {
+    borderColor: colors.headerOrange,
+    backgroundColor: 'rgba(255,107,53,0.05)',
+  },
+  otpInputError: {
+    borderColor: colors.error,
+    backgroundColor: 'rgba(255,59,48,0.05)',
+  },
+  errorText: {
+    color: colors.error,
+    fontSize: 13,
+    textAlign: 'center',
+    marginBottom: 12,
+    fontWeight: '500',
+  },
+  hintText: {
+    fontSize: 13,
+    color: colors.gray,
+    textAlign: 'center',
     marginBottom: 20,
   },
-  timerText: {
-    color: '#555',
-    fontWeight: '500',
-    fontSize: 14,
+  hintOtp: {
+    fontWeight: '700',
+    color: colors.headerOrange,
+  },
+  resendContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 16,
   },
   resendText: {
-    color: '#7B68EE',
-    fontWeight: '600',
-    fontSize: 14,
+    fontSize: 13,
+    color: colors.gray,
   },
-  loginButton: {
-    marginBottom: 20,
-    elevation: 8,
+  resendLink: {
+    fontSize: 13,
+    color: colors.headerOrange,
+    fontWeight: '700',
   },
-  gradientText: {
-    fontSize: 14,
-    fontWeight: '600',
-    textAlign: 'center',
+  footerText: {
+    position: 'absolute',
+    bottom: 24,
+    fontSize: 11,
+    color: 'rgba(255,255,255,0.9)',
   },
 });
 
-export default VerificationScreen;
+export default OTPVerificationScreen;

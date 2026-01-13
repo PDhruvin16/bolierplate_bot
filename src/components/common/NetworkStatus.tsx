@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Animated } from 'react-native';
 import { useNetworkState } from '../../hooks/useRedux';
 import { navigationRef } from '../../navigation/navigationRef';
-import { COLORS } from '../../context/ThemeContext';
+import colors from '../../constants/colors';
 
 const NetworkStatus: React.FC = () => {
   const { isConnected, connectionType, isInternetReachable } =
@@ -43,12 +43,12 @@ const styles = StyleSheet.create({
     zIndex: 1000,
   },
   text: {
-    color: COLORS.white,
+    color: colors.white,
     fontSize: 14,
     fontWeight: '600',
   },
   subText: {
-    color: COLORS.white,
+    color: colors.white,
     fontSize: 12,
     opacity: 0.8,
     marginTop: 2,

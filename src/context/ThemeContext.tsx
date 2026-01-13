@@ -1,7 +1,12 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import storage from '../utils/storage';
-import { dark, light } from '../constants/colors';
 
 export type ThemeType = 'light' | 'dark';
 
@@ -12,11 +17,6 @@ interface ThemeContextProps {
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
-export let COLORS = light;
-const setGlobalColors = (theme: ThemeType) => {
-  COLORS = theme === 'dark' ? dark : light;
-};
-
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<ThemeType>('light');
 
@@ -26,19 +26,17 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
       const storedTheme = await storage.getString('app_theme');
       if (storedTheme === 'dark' || storedTheme === 'light') {
         setTheme(storedTheme);
-        setGlobalColors(storedTheme);
       }
     })();
   }, []);
 
-  // Save + update global colors when theme changes
+  // Save theme when changed
   useEffect(() => {
     AsyncStorage.setItem('app_theme', theme);
-    setGlobalColors(theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
   };
 
   return (

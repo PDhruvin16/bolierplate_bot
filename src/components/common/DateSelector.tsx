@@ -6,11 +6,11 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
-import { COLORS } from '../../context/ThemeContext';
 import CalendarDropdown from './CalendarDropdown';
 import { useTheme } from '../../context/ThemeContext';
 import { renderLogo } from '../../utils/renderlogo';
 import icons from '../../constants/icons';
+import colors from '../../constants/colors';
 
 interface DateSelectorProps {
   startDate?: string;
@@ -97,12 +97,12 @@ const DateSelector: React.FC<DateSelectorProps> = ({
   const themedStyles = {
     container: {
       ...styles.container,
-      backgroundColor: theme === 'dark' ? '#1E1E1E' : COLORS.white,
+      backgroundColor: theme === 'dark' ? '#1E1E1E' : colors.white,
       borderColor: theme === 'dark' ? '#1E1E1E' : '#E0E7FF',
     },
     dateText: {
       ...styles.dateText,
-      color: theme === 'dark' ? '#ffffff' : COLORS.darkGray,
+      color: theme === 'dark' ? '#ffffff' : colors.darkGray,
     },
   };
   const handleSelect = (item: string) => {
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: COLORS.white,
+    backgroundColor: colors.white,
     borderRadius: 12,
     paddingHorizontal: 16,
     paddingVertical: 12,
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     borderWidth: 1,
     borderColor: '#E0E7FF',
-    shadowColor: COLORS.shadow,
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 3.84,
@@ -210,14 +210,14 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   iconContainer: { marginRight: 12 },
-  calendarIcon: { fontSize: 18, color: COLORS.darkGray },
+  calendarIcon: { fontSize: 18, color: colors.darkGray },
   dateText: {
     flex: 1,
     fontSize: 14,
-    color: COLORS.darkGray,
+    color: colors.darkGray,
     fontWeight: '500',
   },
-  dropdownIcon: { fontSize: 12, color: COLORS.darkGray },
+  dropdownIcon: { fontSize: 12, color: colors.darkGray },
 
   overlay: {
     justifyContent: 'center',
@@ -229,10 +229,10 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     marginHorizontal: 40,
-    backgroundColor: COLORS.white,
+    backgroundColor: colors.white,
     borderRadius: 12,
     paddingVertical: 4,
-    shadowColor: COLORS.shadow,
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.15,
     shadowRadius: 3.84,
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   option: { paddingVertical: 12, paddingHorizontal: 16 },
-  optionText: { fontSize: 14, color: COLORS.darkGray },
+  optionText: { fontSize: 14, color: colors.darkGray },
 });
 
 export default DateSelector;

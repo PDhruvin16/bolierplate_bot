@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { COLORS } from '../../context/ThemeContext';
 import { FONTS } from '../../constants/fonts';
 import CustomInput from './CustomInput';
 import SelectDropdown, { SelectOption } from './SelectDropdown';
@@ -8,6 +7,7 @@ import Checkbox from './Checkbox';
 import RadioGroup, { RadioOption } from './RadioGroup';
 import CustomButton from './CustomButton';
 import useForm from '../../hooks/useForm';
+import colors from '../../constants/colors';
 
 export type FieldType =
   | 'text'
@@ -196,12 +196,12 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: FONTS.sm,
-    color: COLORS.dark,
+    color: colors.dark,
     marginBottom: 8,
     fontWeight: '500',
   },
   error: {
-    color: COLORS.error,
+    color: colors.error,
     fontSize: FONTS.xs,
     marginTop: 4,
   },

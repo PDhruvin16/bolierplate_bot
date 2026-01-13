@@ -1,56 +1,32 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import authApi from '../../api/authApi';
 import storage from '../../utils/storage';
 import log from '../../utils/logger';
+import authService from '../../services/authService';
 
 // Async thunks
 export const loginUser = createAsyncThunk(
   'auth/login',
-  async (
-    credentials: { email: string; password: string },
-    { rejectWithValue },
-  ) => {
+  async (credentials: { otp: string }, { rejectWithValue }) => {
     try {
-      log.debug('🚀 Starting login process with credentials:', credentials);
+      log.debug('🚀 Starting OTP login process');
+      const response = await authService.loginWithOTP(credentials.otp);
 
-      // Call real API
-      const response = await authApi.login(credentials);
-      log.debug('✅ Login API response received:', response);
-
-      // Store tokens in AsyncStorage
-      await storage.setString('authToken', response.access);
-      await storage.setString('refreshToken', response.refresh);
-      log.debug('💾 Tokens stored in AsyncStorage');
-
-      // Create basic user data from credentials (avoiding profile fetch for now)
-      const userData = {
-        id: 'user-id', // We can extract this from JWT token later
-        email: credentials.email,
-        firstName: '',
-        lastName: '',
-        role: 'user' as const,
-        isActive: true,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      };
-
-      await AsyncStorage.setItem('userData', JSON.stringify(userData));
-      log.debug('👤 User data stored:', userData);
+      await storage.setString('authToken', response.token);
+      await AsyncStorage.setItem('userData', JSON.stringify(response.user));
 
       const result = {
-        user: userData,
-        accessToken: response.access,
-        refreshToken: response.refresh,
+        user: response.user,
+        accessToken: response.token,
+        refreshToken: null,
       };
 
-      log.debug('🎉 Login successful, returning result:', result);
+      log.debug('🎉 OTP login successful');
       return result;
     } catch (error: unknown) {
       log.error('❌ Login error in auth slice:', error);
       const errorMessage =
         (error as any)?.response?.data?.message || 'Login failed';
-      log.error('❌ Error message:', errorMessage);
       return rejectWithValue(errorMessage);
     }
   },
@@ -61,12 +37,11 @@ export const checkAuthStatus = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const accessToken = await AsyncStorage.getItem('authToken');
-      const refreshToken = await AsyncStorage.getItem('refreshToken');
       const userData = await AsyncStorage.getItem('userData');
 
-      if (accessToken && refreshToken && userData) {
+      if (accessToken && userData) {
         const user = JSON.parse(userData);
-        return { user, accessToken, refreshToken };
+        return { user, accessToken, refreshToken: null };
       }
       return rejectWithValue('Not authenticated');
     } catch (error: unknown) {

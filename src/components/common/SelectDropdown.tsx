@@ -7,10 +7,10 @@ import {
   TextInput,
   ScrollView,
 } from 'react-native';
-import { COLORS } from '../../context/ThemeContext';
 import { FONTS } from '../../constants/fonts';
 import { renderLogo } from '../../utils/renderlogo';
 import icons from '../../constants/icons';
+import colors from '../../constants/colors';
 
 export interface SelectOption {
   id: string;
@@ -206,7 +206,7 @@ const SelectDropdown: React.FC<SelectDropdownProps> = ({
               <TextInput
                 style={styles.searchInput}
                 placeholder={placeholder}
-                placeholderTextColor={COLORS.gray}
+                placeholderTextColor={colors.gray}
                 value={query}
                 onChangeText={setQuery}
               />
@@ -293,22 +293,22 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '500',
-    color: COLORS.dark,
+    color: colors.dark,
     marginBottom: 8,
   },
   input: {
     height: 50,
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor: colors.border,
     borderRadius: 6,
     paddingHorizontal: 12,
-    backgroundColor: COLORS.white,
+    backgroundColor: colors.white,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   inputDisabled: {
-    backgroundColor: COLORS.lightBackground,
+    backgroundColor: colors.lightBackground,
   },
   inputContent: {
     flex: 1,
@@ -316,10 +316,10 @@ const styles = StyleSheet.create({
   },
   inputText: {
     fontSize: FONTS.sm,
-    color: COLORS.dark,
+    color: colors.dark,
   },
   placeholder: {
-    color: COLORS.gray,
+    color: colors.gray,
   },
   chevron: {
     // Removed color property; add layout styles here if needed
@@ -327,9 +327,9 @@ const styles = StyleSheet.create({
   dropdown: {
     marginTop: 6,
     borderRadius: 8,
-    backgroundColor: COLORS.white,
+    backgroundColor: colors.white,
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor: colors.border,
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 2 },
@@ -341,24 +341,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 12,
     borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
+    borderBottomColor: colors.border,
     height: 40,
   },
   searchIcon: {
     fontSize: 16,
-    color: COLORS.gray,
+    color: colors.gray,
     marginRight: 8,
   },
   searchInput: {
     flex: 1,
     fontSize: FONTS.sm,
-    color: COLORS.dark,
+    color: colors.dark,
   },
   // New tab styles
   tabContainer: {
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
+    borderBottomColor: colors.border,
   },
   tab: {
     paddingHorizontal: 16,
@@ -367,15 +367,15 @@ const styles = StyleSheet.create({
     borderBottomColor: 'transparent',
   },
   activeTab: {
-    borderBottomColor: COLORS.primary,
+    borderBottomColor: colors.primary,
   },
   tabText: {
     fontSize: FONTS.sm,
-    color: COLORS.gray,
+    color: colors.gray,
     fontWeight: '500',
   },
   activeTabText: {
-    color: COLORS.primary,
+    color: colors.primary,
   },
   menu: {
     maxHeight: 150,
@@ -386,16 +386,16 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 12,
     borderBottomWidth: 1,
-    borderBottomColor: COLORS.lightGray,
+    borderBottomColor: colors.lightGray,
   },
   optionText: {
     flex: 1,
     fontSize: FONTS.sm,
-    color: COLORS.dark,
+    color: colors.dark,
   },
   optionRight: {
     fontSize: 18,
-    color: COLORS.gray,
+    color: colors.gray,
   },
   // Checkbox styles copied from RelatedSection for consistency
   checkboxContainer: {
@@ -406,16 +406,16 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 4,
     borderWidth: 2,
-    borderColor: COLORS.gray,
+    borderColor: colors.gray,
     justifyContent: 'center',
     alignItems: 'center',
   },
   checkedBox: {
-    backgroundColor: COLORS.primary,
-    borderColor: COLORS.primary,
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
   },
   checkmark: {
-    color: COLORS.white,
+    color: colors.white,
     fontSize: 12,
     fontWeight: 'bold',
   },
@@ -431,16 +431,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     height: 24,
     borderRadius: 12,
-    backgroundColor: COLORS.lightBackground,
+    backgroundColor: colors.lightBackground,
     marginRight: 6,
   },
   chipText: {
     fontSize: FONTS.xs,
-    color: COLORS.dark,
+    color: colors.dark,
   },
   chipClose: {
     fontSize: 12,
-    color: COLORS.gray,
+    color: colors.gray,
   },
   newRow: {
     flexDirection: 'row',
@@ -450,12 +450,12 @@ const styles = StyleSheet.create({
   },
   plus: {
     fontSize: 16,
-    color: COLORS.gray,
+    color: colors.gray,
     marginRight: 6,
   },
   newText: {
     fontSize: FONTS.sm,
-    color: COLORS.dark,
+    color: colors.dark,
   },
   emptyContainer: {
     paddingVertical: 20,
@@ -463,7 +463,7 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: FONTS.sm,
-    color: COLORS.gray,
+    color: colors.gray,
     fontStyle: 'italic',
   },
 });

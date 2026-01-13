@@ -1,54 +1,53 @@
-import { useDispatch, useSelector } from 'react-redux';
-import type { AppDispatch } from '../store';
+import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
+import type { AppDispatch, RootState } from '../store';
 
 // Typed useSelector hook
-export const useAppSelector = useSelector;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 // Typed useDispatch hook
-export const useAppDispatch: () => AppDispatch = () =>
-  useDispatch<AppDispatch>();
+export const useAppDispatch = () => useDispatch<AppDispatch>();
 
 // Custom hook for auth state
 export const useAuthState = () => {
-  return useAppSelector((state: any) => state.auth);
+  return useAppSelector((state: RootState) => state.auth);
 };
 
 // Custom hook for customer state
 export const useCustomerState = () => {
-  return useAppSelector((state: any) => state.customers);
+  return useAppSelector((state: RootState) => state.customers);
 };
 
 // Custom hook for lead state
 export const useLeadState = () => {
-  return useAppSelector((state: any) => state.leads);
+  return useAppSelector((state: RootState) => state.leads);
 };
 
 // Custom hook for notification state
 export const useNotificationState = () => {
-  return useAppSelector((state: any) => state.notifications);
+  return useAppSelector((state: RootState) => state.notifications);
 };
 
 // Custom hook for network state
 export const useNetworkState = () => {
-  return useAppSelector((state: any) => state.network);
+  return useAppSelector((state: RootState) => state.network);
 };
 
 // Custom hook for user data
 export const useUser = () => {
-  return useAppSelector((state: any) => state.auth.user);
+  return useAppSelector((state: RootState) => state.auth.user);
 };
 
 // Custom hook for authentication status
 export const useIsAuthenticated = () => {
-  return useAppSelector((state: any) => state.auth.isAuthenticated);
+  return useAppSelector((state: RootState) => state.auth.isAuthenticated);
 };
 
 // Custom hook for loading state
 export const useIsLoading = () => {
-  return useAppSelector((state: any) => state.auth.isLoading);
+  return useAppSelector((state: RootState) => state.auth.isLoading);
 };
 
 // Custom hook for error state
 export const useError = () => {
-  return useAppSelector((state: any) => state.auth.error);
+  return useAppSelector((state: RootState) => state.auth.error);
 };

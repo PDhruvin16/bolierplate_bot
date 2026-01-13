@@ -17,12 +17,13 @@ export type AuthStackParamList = {
   OtpSuccess: undefined;
 };
 
-// Main App Tab Navigator Types
+// Main App Tab Navigator Types (Bottom Tabs)
 export type AppTabParamList = {
-  Dashboard: undefined;
-  Customers: NavigatorScreenParams<CustomerStackParamList>;
-  Leads: NavigatorScreenParams<LeadStackParamList>;
-  Profile: NavigatorScreenParams<ProfileStackParamList>;
+  Home: undefined;
+  BeatPlan: undefined;
+  Outlets: undefined;
+  Requests: undefined;
+  Profile: undefined;
 };
 
 // Customer Stack Navigator Types

@@ -7,8 +7,9 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import { COLORS } from '../../context/ThemeContext';
+
 import images from '../../constants/images';
+import colors from '../../constants/colors';
 
 interface ChatbotModalProps {
   visible: boolean;
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
   },
   container: {
     width: 350,
-    backgroundColor: COLORS.white,
+    backgroundColor: colors.white,
     borderRadius: 16,
     padding: 18,
     shadowColor: '#000',
