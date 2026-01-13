@@ -58,8 +58,8 @@ const colors = {
   },
 
   // Orange/Red gradient colors for header (from image)
-  headerGradientStart: '#FF6B35',
-  headerGradientEnd: '#F7931E',
+  headerGradientStart: '#1172CD',
+  headerGradientEnd: '#6BD9D9',
   headerOrange: '#FF6B35',
   headerRed: '#F7931E',
 

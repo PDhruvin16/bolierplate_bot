@@ -227,7 +227,8 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
       <Loader visible={isSubmitting} text="Sending OTP..." />
 
       <LinearGradient
-        colors={[colors.headerGradientStart, colors.headerGradientEnd]}
+        colors={[colors.headerGradientStart , colors.headerGradientEnd,colors.gradientStart]}
+          locations={[0, 0.5, 1]}   // 50% same color
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
         style={styles.gradientBackground}
