@@ -59,7 +59,7 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
               variant.profileImage
                 ? { uri: variant.profileImage }
                 : {
-                    uri: 'https://ui-avatars.com/api/?name=Field+Force&background=F7931E&color=fff&rounded=true',
+                    uri: 'https://ui-avatars.com/api/?name=Field+Force&background=1172CD&color=fff&rounded=true',
                   }
             }
             style={styles.profileImage}

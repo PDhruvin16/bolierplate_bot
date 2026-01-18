@@ -1,331 +1,3 @@
-// import React, { useState } from 'react';
-// import {
-//   View,
-//   Text,
-//   StyleSheet,
-//   ScrollView,
-//   TouchableOpacity,
-// } from 'react-native';
-// import AppLayout from '../../components/layouts/AppLayout';
-// import colors from '../../constants/colors';
-// import { useAuth } from '../../hooks/useAuth';
-// import { CustomHeaderProps } from '../../components/common/CustomHeader';
-// import {
-//   Camera,
-//   ShoppingBag,
-//   Store,
-//   Users,
-//   Clock3,
-// } from 'lucide-react-native';
-
-// const HomeScreen: React.FC = () => {
-//   const { user } = useAuth();
-//   const [punchInTime, setPunchInTime] = useState<string | null>(null);
-//   const [punchOutTime, setPunchOutTime] = useState<string | null>(null);
-
-//   const handlePunchIn = () => {
-//     const now = new Date();
-//     const timeString = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-//     setPunchInTime(timeString);
-//   };
-
-//   const handlePunchOut = () => {
-//     const now = new Date();
-//     const timeString = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-//     setPunchOutTime(timeString);
-//   };
-
-//   const headerConfig: CustomHeaderProps = {
-//     variant: {
-//       type: 'home',
-//       title: (user as any)?.name || 'Rajesh Kumar',
-//       subtitle: 'Welcome',
-//       location: (user as any)?.location || 'Mumbai West',
-//       showProfile: true,
-//       profileImage: (user as any)?.avatar,
-//     },
-//     onNotificationPress: () => {},
-//     notificationCount: 3,
-//   };
-
-//   const PunchCard = () => (
-//     <View style={styles.punchCard}>
-//       <View style={styles.punchRow}>
-//         <View style={styles.punchSection}>
-//           <View style={[styles.pillIcon, { backgroundColor: colors.quickActionGreen }]}>
-//             <Clock3 size={20} color="#31A24C" />
-//           </View>
-//           <Text style={styles.punchLabel}>First Punch In</Text>
-//           <Text style={styles.punchTime}>{punchInTime || '--:--'}</Text>
-//         </View>
-//         <View style={styles.divider} />
-//         <View style={styles.punchSection}>
-//           <View style={[styles.pillIcon, { backgroundColor: colors.dashboard.lightRed }]}>
-//             <Clock3 size={20} color="#D9534F" />
-//           </View>
-//           <Text style={styles.punchLabel}>Last Punch Out</Text>
-//           <Text style={styles.punchTime}>{punchOutTime || '--:--'}</Text>
-//         </View>
-//       </View>
-//       <TouchableOpacity style={styles.punchButton} onPress={handlePunchIn}>
-//         <Camera size={20} color={colors.white} />
-//         <Text style={styles.punchButtonText}>Punch In</Text>
-//       </TouchableOpacity>
-//     </View>
-//   );
-
-//   return (
-//     <AppLayout headerProps={headerConfig}>
-//       {/* Punch Card positioned absolutely to overlap header */}
-//       <View style={styles.punchWrapper}>
-//         <PunchCard />
-//       </View>
-
-//       <ScrollView
-//         style={styles.scrollView}
-//         contentContainerStyle={styles.scrollContent}
-//         showsVerticalScrollIndicator={false}
-//       >
-//         {/* Spacer to push content below punch card */}
-//         <View style={styles.punchSpacer} />
-
-//         {/* Quick Actions */}
-//         <Text style={styles.sectionTitle}>Quick Actions</Text>
-//         <View style={styles.quickActionsContainer}>
-//           <TouchableOpacity style={[styles.quickActionButton, { backgroundColor: colors.quickActionGreen }]}>
-//             <Camera size={24} color="#2F8F46" />
-//             <Text style={styles.quickActionText}>Punch In</Text>
-//           </TouchableOpacity>
-          
-//           <TouchableOpacity style={[styles.quickActionButton, { backgroundColor: colors.quickActionOrange }]}>
-//             <ShoppingBag size={24} color="#D97A00" />
-//             <Text style={styles.quickActionText}>New Order</Text>
-//           </TouchableOpacity>
-          
-//           <TouchableOpacity style={[styles.quickActionButton, { backgroundColor: colors.quickActionBlue }]}>
-//             <Store size={24} color="#1F6FB6" />
-//             <Text style={styles.quickActionText}>Add Outlet</Text>
-//           </TouchableOpacity>
-          
-//           <TouchableOpacity style={[styles.quickActionButton, { backgroundColor: colors.quickActionYellow }]}>
-//             <Users size={24} color="#C28A00" />
-//             <Text style={styles.quickActionText}>Add Lead</Text>
-//           </TouchableOpacity>
-//         </View>
-
-//         {/* Today's Summary */}
-//         <Text style={styles.sectionTitle}>Today's Summary</Text>
-//         <View style={styles.summaryContainer}>
-//           <View style={styles.summaryCard}>
-//             <Text style={styles.summaryLabel}>Working Hours</Text>
-//             <Text style={styles.summaryValue}>0h 0m</Text>
-//           </View>
-          
-//           <View style={styles.summaryCard}>
-//             <Text style={styles.summaryLabel}>Distance</Text>
-//             <Text style={styles.summaryValue}>14 km</Text>
-//           </View>
-//         </View>
-
-//         <View style={styles.summaryContainer}>
-//           <View style={styles.summaryCard}>
-//             <Text style={styles.summaryLabel}>Visits</Text>
-//             <Text style={styles.summaryValue}>0</Text>
-//           </View>
-          
-//           <View style={styles.summaryCard}>
-//             <Text style={styles.summaryLabel}>Orders</Text>
-//             <Text style={styles.summaryValue}>4</Text>
-//           </View>
-//         </View>
-
-//         {/* Key Metrics */}
-//         <Text style={styles.sectionTitle}>Key Metrics</Text>
-//         <View style={styles.metricRow}>
-//           <View style={styles.metricCard}>
-//             <Text style={styles.metricLabel}>Attendance</Text>
-//             <Text style={styles.metricValue}>Absent</Text>
-//           </View>
-//           <View style={styles.metricCard}>
-//             <Text style={styles.metricLabel}>Zero Orders</Text>
-//             <Text style={styles.metricValue}>0</Text>
-//           </View>
-//           <View style={styles.metricCard}>
-//             <Text style={styles.metricLabel}>Productive Calls</Text>
-//             <Text style={styles.metricValue}>0/0</Text>
-//           </View>
-//         </View>
-//       </ScrollView>
-//     </AppLayout>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   scrollView: {
-//     flex: 1,
-//   },
-//   scrollContent: {
-//     paddingHorizontal: 16,
-//     paddingBottom: 100,
-//   },
-//   punchWrapper: {
-//     position: 'absolute',
-//     top: -60,
-//     left: 16,
-//     right: 16,
-//     zIndex: 999,
-//     elevation: 10,
-//   },
-//   punchSpacer: {
-//     height: 130,
-//   },
-//   punchCard: {
-//     backgroundColor: colors.white,
-//     borderRadius: 18,
-//     padding: 20,
-//     shadowColor: colors.shadow,
-//     shadowOffset: { width: 0, height: 4 },
-//     shadowOpacity: 0.18,
-//     shadowRadius: 8,
-//     elevation: 8,
-//   },
-//   punchRow: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     marginBottom: 16,
-//   },
-//   punchSection: {
-//     flex: 1,
-//     alignItems: 'center',
-//   },
-//   pillIcon: {
-//     width: 44,
-//     height: 44,
-//     borderRadius: 22,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     marginBottom: 8,
-//   },
-//   punchLabel: {
-//     fontSize: 12,
-//     color: colors.gray,
-//     marginBottom: 4,
-//   },
-//   punchTime: {
-//     fontSize: 18,
-//     fontWeight: '700',
-//     color: colors.dark,
-//   },
-//   divider: {
-//     width: 1,
-//     height: 60,
-//     backgroundColor: colors.border,
-//     marginHorizontal: 10,
-//   },
-//   punchButton: {
-//     backgroundColor: colors.headerOrange,
-//     borderRadius: 12,
-//     paddingVertical: 14,
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   punchButtonText: {
-//     color: colors.white,
-//     fontSize: 16,
-//     fontWeight: '700',
-//     marginLeft: 8,
-//   },
-//   sectionTitle: {
-//     fontSize: 18,
-//     fontWeight: '700',
-//     color: colors.dark,
-//     marginBottom: 16,
-//     marginTop: 8,
-//   },
-//   quickActionsContainer: {
-//     flexDirection: 'row',
-//     flexWrap: 'wrap',
-//     justifyContent: 'space-between',
-//     marginBottom: 24,
-//   },
-//   quickActionButton: {
-//     width: '48%',
-//     aspectRatio: 1,
-//     borderRadius: 14,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     marginBottom: 12,
-//     shadowColor: colors.shadow,
-//     shadowOffset: { width: 0, height: 1 },
-//     shadowOpacity: 0.1,
-//     shadowRadius: 2,
-//     elevation: 2,
-//     gap: 8,
-//   },
-//   quickActionText: {
-//     fontSize: 13,
-//     fontWeight: '600',
-//     color: colors.dark,
-//   },
-//   summaryContainer: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     marginBottom: 12,
-//   },
-//   summaryCard: {
-//     flex: 1,
-//     backgroundColor: colors.white,
-//     borderRadius: 12,
-//     padding: 16,
-//     marginHorizontal: 6,
-//     alignItems: 'center',
-//     shadowColor: colors.shadow,
-//     shadowOffset: { width: 0, height: 1 },
-//     shadowOpacity: 0.1,
-//     shadowRadius: 2,
-//     elevation: 2,
-//   },
-//   summaryLabel: {
-//     fontSize: 12,
-//     color: colors.gray,
-//     marginBottom: 4,
-//   },
-//   summaryValue: {
-//     fontSize: 18,
-//     fontWeight: '700',
-//     color: colors.dark,
-//   },
-//   metricRow: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     gap: 10,
-//     marginBottom: 16,
-//   },
-//   metricCard: {
-//     flex: 1,
-//     backgroundColor: colors.white,
-//     borderRadius: 12,
-//     padding: 16,
-//     shadowColor: colors.shadow,
-//     shadowOffset: { width: 0, height: 1 },
-//     shadowOpacity: 0.1,
-//     shadowRadius: 2,
-//     elevation: 2,
-//   },
-//   metricLabel: {
-//     fontSize: 13,
-//     color: colors.gray,
-//     marginBottom: 6,
-//   },
-//   metricValue: {
-//     fontSize: 15,
-//     fontWeight: '700',
-//     color: colors.dark,
-//   },
-// });
-
-// export default HomeScreen;
 import React, { useState } from 'react';
 import {
   View,
@@ -516,7 +188,7 @@ const HomeScreen: React.FC = () => {
         <View style={styles.leaveBalanceCard}>
           <View style={styles.leaveHeader}>
             <View style={styles.leaveHeaderLeft}>
-              <Briefcase size={20} color={colors.headerOrange} />
+              <Briefcase size={20} color={colors.headerGradientStart} />
               <Text style={styles.leaveTitle}>Leave Balance</Text>
             </View>
             <TouchableOpacity>
@@ -547,7 +219,7 @@ const HomeScreen: React.FC = () => {
         <View style={styles.targetCard}>
           <View style={styles.targetHeader}>
             <View style={styles.targetHeaderLeft}>
-              <TrendingUp size={20} color={colors.headerOrange} />
+              <TrendingUp size={20} color={colors.headerGradientStart} />
               <Text style={styles.targetTitle}>Target vs Achievement</Text>
             </View>
             <Text style={styles.targetPercentage}>71%</Text>
@@ -571,7 +243,7 @@ const HomeScreen: React.FC = () => {
         <View style={styles.performanceCard}>
           <View style={styles.performanceHeader}>
             <View style={styles.performanceHeaderLeft}>
-              <BarChart3 size={20} color={colors.headerOrange} />
+              <BarChart3 size={20} color={colors.headerGradientStart} />
               <Text style={styles.performanceTitle}>Performance</Text>
             </View>
             <View style={styles.performanceToggle}>
@@ -746,10 +418,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     padding: 24,
   },
-  punchCardGradient: {
-    backgroundColor: colors.white,
-    padding: 24,
-  },
   punchTimeSection: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -797,14 +465,14 @@ const styles = StyleSheet.create({
   punchButton: {
     borderRadius: 16,
     overflow: 'hidden',
-    shadowColor: colors.headerOrange,
+    shadowColor: colors.headerGradientStart,
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.35,
     shadowRadius: 12,
     elevation: 6,
   },
   punchButtonContent: {
-    backgroundColor: colors.headerOrange,
+    backgroundColor: colors.headerGradientStart,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -963,7 +631,7 @@ const styles = StyleSheet.create({
   applyLeaveText: {
     fontSize: 14,
     fontWeight: '600',
-    color: colors.headerOrange,
+    color: colors.headerGradientStart,
   },
   leaveStats: {
     flexDirection: 'row',
@@ -1015,7 +683,7 @@ const styles = StyleSheet.create({
   targetPercentage: {
     fontSize: 18,
     fontWeight: '700',
-    color: colors.warning,
+    color: colors.headerGradientStart,
   },
   progressBar: {
     height: 8,
@@ -1026,7 +694,7 @@ const styles = StyleSheet.create({
   },
   progressFill: {
     height: '100%',
-    backgroundColor: colors.headerOrange,
+    backgroundColor: colors.headerGradientStart,
     borderRadius: 4,
   },
   targetStats: {
@@ -1118,7 +786,7 @@ const styles = StyleSheet.create({
   },
   bar: {
     width: 28,
-    backgroundColor: colors.headerOrange,
+    backgroundColor: colors.headerGradientStart,
     borderRadius: 4,
   },
   barLabel: {
@@ -1245,7 +913,7 @@ const styles = StyleSheet.create({
   viewAllText: {
     fontSize: 14,
     fontWeight: '600',
-    color: colors.headerOrange,
+    color: colors.gradientStart,
   },
   outletsList: {
     gap: 12,

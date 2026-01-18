@@ -31,11 +31,11 @@ const OTPVerificationScreen: React.FC<OTPVerificationScreenProps> = ({
 }) => {
   const { login, isLoading } = useAuth() as any;
   const { mobile } = route.params;
-  
+
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
-  
+
   const inputRefs = useRef<(TextInput | null)[]>([]);
 
   const handleOtpChange = (value: string, index: number) => {
@@ -62,7 +62,7 @@ const OTPVerificationScreen: React.FC<OTPVerificationScreenProps> = ({
 
   const handleVerifyOtp = async () => {
     const otpString = otp.join('');
-    
+
     if (otpString.length !== 6) {
       setError('Please enter complete 6-digit OTP');
       return;
@@ -70,7 +70,7 @@ const OTPVerificationScreen: React.FC<OTPVerificationScreenProps> = ({
 
     setIsSubmitting(true);
     setError('');
-    
+
     try {
       await login({ otp: otpString });
       // Navigation will be handled by RootNavigator after auth state updates
@@ -100,78 +100,82 @@ const OTPVerificationScreen: React.FC<OTPVerificationScreenProps> = ({
       <Loader visible={isLoading || isSubmitting} text="Verifying OTP..." />
 
       <LinearGradient
-        colors={[colors.headerGradientStart, colors.headerGradientEnd]}
+        colors={[colors.headerGradientStart , colors.headerGradientEnd,colors.headerGradientStart]}
+        locations={[0, 0.5, 1]}   // 50% same color
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
-        style={styles.gradientBackground}
+        style={{ flex: 1 }}
+
       >
-        <TouchableOpacity 
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <ArrowLeft size={24} color={colors.white} />
-        </TouchableOpacity>
+        <View style={styles.gradientBackground}>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => navigation.goBack()}
+          >
+            <ArrowLeft size={24} color={colors.white} />
+          </TouchableOpacity>
 
-        <View style={styles.logoCircle}>
-          <Lock size={32} color={colors.white} />
-        </View>
-        
-        <Text style={styles.title}>Verify OTP</Text>
-        <Text style={styles.subtitle}>
-          Enter the 6-digit code sent to{'\n'}
-          <Text style={styles.mobileNumber}>{mobile}</Text>
-        </Text>
-
-        <View style={styles.card}>
-          <View style={styles.otpContainer}>
-            {otp.map((digit, index) => (
-              <TextInput
-                key={index}
-                ref={ref => (inputRefs.current[index] = ref)}
-                style={[
-                  styles.otpInput,
-                  digit && styles.otpInputFilled,
-                  error && styles.otpInputError,
-                ]}
-                value={digit}
-                onChangeText={value => handleOtpChange(value, index)}
-                onKeyPress={e => handleKeyPress(e, index)}
-                keyboardType="number-pad"
-                maxLength={1}
-                selectTextOnFocus
-                autoFocus={index === 0}
-              />
-            ))}
+          <View style={styles.logoCircle}>
+            <Lock size={32} color={colors.white} />
           </View>
 
-          {error ? (
-            <Text style={styles.errorText}>{error}</Text>
-          ) : null}
-
-          <Text style={styles.hintText}>
-            Use OTP: <Text style={styles.hintOtp}>123456</Text>
+          <Text style={styles.title}>Verify OTP</Text>
+          <Text style={styles.subtitle}>
+            Enter the 6-digit code sent to{'\n'}
+            <Text style={styles.mobileNumber}>{mobile}</Text>
           </Text>
 
-          <CustomButton
-            title="Verify & Continue"
-            onPress={handleVerifyOtp}
-            loading={isSubmitting}
-            disabled={!isValid || isSubmitting}
-            variant="custom"
-            customColors={[colors.headerGradientStart, colors.headerGradientEnd]}
-          />
+          <View style={styles.card}>
+            <View style={styles.otpContainer}>
+              {otp.map((digit, index) => (
+                <TextInput
+                  key={index}
+                  ref={ref => (inputRefs.current[index] = ref)}
+                  style={[
+                    styles.otpInput,
+                    digit && styles.otpInputFilled,
+                    error && styles.otpInputError,
+                  ]}
+                  value={digit}
+                  onChangeText={value => handleOtpChange(value, index)}
+                  onKeyPress={e => handleKeyPress(e, index)}
+                  keyboardType="number-pad"
+                  maxLength={1}
+                  selectTextOnFocus
+                  autoFocus={index === 0}
+                />
+              ))}
+            </View>
 
-          <View style={styles.resendContainer}>
-            <Text style={styles.resendText}>Didn't receive the code? </Text>
-            <TouchableOpacity onPress={handleResendOtp}>
-              <Text style={styles.resendLink}>Resend OTP</Text>
-            </TouchableOpacity>
+            {error ? (
+              <Text style={styles.errorText}>{error}</Text>
+            ) : null}
+
+            <Text style={styles.hintText}>
+              Use OTP: <Text style={styles.hintOtp}>123456</Text>
+            </Text>
+
+            <CustomButton
+              title="Verify & Continue"
+              onPress={handleVerifyOtp}
+              loading={isSubmitting}
+              disabled={!isValid || isSubmitting}
+              variant="custom"
+              customColors={[colors.headerGradientStart, colors.headerGradientEnd]}
+            />
+
+            <View style={styles.resendContainer}>
+              <Text style={styles.resendText}>Didn't receive the code? </Text>
+              <TouchableOpacity onPress={handleResendOtp}>
+                <Text style={styles.resendLink}>Resend OTP</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
 
-        <Text style={styles.footerText}>
-          Toagosei India Private Limited © 2024
-        </Text>
+          <Text style={styles.footerText}>
+            Toagosei India Private Limited © 2024
+          </Text>
+        </View>
       </LinearGradient>
     </KeyboardAvoidingView>
   );

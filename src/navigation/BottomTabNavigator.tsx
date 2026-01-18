@@ -16,12 +16,12 @@ const BottomTabNavigator = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: colors.headerOrange,
+        tabBarActiveTintColor: colors.headerGradientStart,
         tabBarInactiveTintColor: colors.gray,
         tabBarStyle: {
           height: 60,
-          paddingBottom: 8,
-          paddingTop: 8,
+          paddingBottom: 10,
+          paddingTop: 0,
           borderTopWidth: 1,
           borderTopColor: colors.border,
           backgroundColor: colors.white,
@@ -37,7 +37,7 @@ const BottomTabNavigator = () => {
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused, color }) => (
-            <Home size={22} color={focused ? colors.headerOrange : colors.gray} />
+            <Home size={22} color={focused ? colors.headerGradientStart : colors.gray} />
           ),
         }}
       />
@@ -47,7 +47,7 @@ const BottomTabNavigator = () => {
         options={{
           tabBarLabel: 'Beat Plan',
           tabBarIcon: ({ focused }) => (
-            <Map size={22} color={focused ? colors.headerOrange : colors.gray} />
+            <Map size={22} color={focused ? colors.headerGradientStart : colors.gray} />
           ),
         }}
       />
@@ -56,7 +56,7 @@ const BottomTabNavigator = () => {
         component={OutletsScreen}
         options={{
           tabBarIcon: ({ focused }) => (
-            <Store size={22} color={focused ? colors.headerOrange : colors.gray} />
+            <Store size={22} color={focused ? colors.headerGradientStart : colors.gray} />
           ),
         }}
       />
@@ -65,7 +65,7 @@ const BottomTabNavigator = () => {
         component={RequestsScreen}
         options={{
           tabBarIcon: ({ focused }) => (
-            <FileText size={22} color={focused ? colors.headerOrange : colors.gray} />
+            <FileText size={22} color={focused ? colors.headerGradientStart : colors.gray} />
           ),
         }}
       />
@@ -74,7 +74,7 @@ const BottomTabNavigator = () => {
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ focused }) => (
-            <User size={22} color={focused ? colors.headerOrange : colors.gray} />
+            <User size={22} color={focused ? colors.headerGradientStart : colors.gray} />
           ),
         }}
       />

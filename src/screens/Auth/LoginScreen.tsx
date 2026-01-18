@@ -227,12 +227,15 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
       <Loader visible={isSubmitting} text="Sending OTP..." />
 
       <LinearGradient
-        colors={[colors.headerGradientStart , colors.headerGradientEnd,colors.gradientStart]}
+        colors={[colors.headerGradientStart , colors.headerGradientEnd,colors.headerGradientStart]}
           locations={[0, 0.5, 1]}   // 50% same color
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
         style={styles.gradientBackground}
       >
+        <View style ={{   paddingHorizontal: 24,
+    alignItems: 'center',
+    justifyContent: 'center',flex:1}}>
         <View style={styles.logoCircle}>
           <Text style={styles.logoText}>T</Text>
         </View>
@@ -275,6 +278,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
         <Text style={styles.footerText}>
           Toagosei India Private Limited © 2024
         </Text>
+        </View>
       </LinearGradient>
     </KeyboardAvoidingView>
   );
@@ -287,9 +291,7 @@ const styles = StyleSheet.create({
   },
   gradientBackground: {
     flex: 1,
-    paddingHorizontal: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
+  
   },
   logoCircle: {
     width: 72,
