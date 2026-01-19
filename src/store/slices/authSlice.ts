@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import storage from '../../utils/storage';
 import log from '../../utils/logger';
 import authService from '../../services/authService';
+import authApi from '../../api/authApi';
 
 // Async thunks
 export const loginUser = createAsyncThunk(
